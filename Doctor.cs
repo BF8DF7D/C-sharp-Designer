@@ -29,8 +29,7 @@ namespace С_sharp_Designer
 
         public Talon CreateTalon()
         {
-            Talon newtalon = new();
-            newtalon.SetTalon(this);
+            Talon newtalon = new(this);
             return newtalon;
         }
         public FIO GetFIO()

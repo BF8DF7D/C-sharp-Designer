@@ -22,7 +22,7 @@ namespace С_sharp_Designer
             return False_input_value;
         }
 
-        int InputFormatInt() {
+        public static int InputFormatInt() {
             do
             {
                 Console.Write(" Номер кабинета: ");
