@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C_sharp_Static_Fielads_and_meyhods
+namespace С_sharp_Designer
 {
     class Date
     {
@@ -31,45 +31,11 @@ namespace C_sharp_Static_Fielads_and_meyhods
             set => formatDate = value;
         }
 
-        public void SetFormat()
+        public bool SetBool(int[] data_entered)
         {
-            bool False_Input_Value;
-            do
-            {
-                Console.Write(" Дата: ");
-                False_Input_Value = SetBool();
-                if (False_Input_Value)
-                    Console.WriteLine("\n <Дата введена некорректно>");
-            } while (False_Input_Value);
-        }
-        public bool SetBool()
-        {
-            bool False_input_value = false;
-
-            string[] input_values = Console.ReadLine().Split(".");
-            const int Quantity_input_value = 3;
-            False_input_value = input_values.Length != Quantity_input_value;
-            if (False_input_value)
-                return False_input_value;
-
-            int[] date = new int[3];
-            int input_number = 0;
-            foreach (string value in input_values)
-            {
-                try
-                {
-                    date[input_number++] = Convert.ToInt32(value);
-                }
-                catch (Exception e)
-                {
-                    False_input_value = true;
-                    return False_input_value;
-                }
-            }
-
-            int day = date[0],
-                mounth = date[1],
-                year = date[2];
+            int day = data_entered[0],
+                mounth = data_entered[1],
+                year = data_entered[2];
 
             const int Minimum_for_days_and_months = 0,
                 Maximum_day = 31,
@@ -77,19 +43,64 @@ namespace C_sharp_Static_Fielads_and_meyhods
                 Minimum_value_for_years = 999,
                 Maximum_years = 9999;
 
-            False_input_value = (day <= Minimum_for_days_and_months || day > Maximum_day)
+            bool False_input_value = (day <= Minimum_for_days_and_months || day > Maximum_day)
                 || (mounth <= Minimum_for_days_and_months || mounth > Maximum_mounth)
                 || (year <= Minimum_value_for_years || year > Maximum_years);
-            if (False_input_value)
-                return False_input_value;
-
-            formatDate = $"{day:d2}.{mounth:d2}.{year}";
-            this.day = day;
-            this.mounth = mounth;
-            this.year = year;
 
             return False_input_value;
         }
+        public Date()
+        {
+            do
+            {
+                Console.Write(" Дата: ");
+                
+                //CHECKING FOR THE AMUNT OF DATA ENTERED
+                string[] input_values = Console.ReadLine().Split(".");
+                const int Quantity_input_value = 3;
+                if (input_values.Length != Quantity_input_value)
+                {
+                    Console.WriteLine("\n <Неверное количество данных>");
+                    continue;
+                }
+
+                //CHECKING FOR THE DATA TYPE
+                int[] date = new int[3];
+                int input_number = 0;
+                bool False_input_value = false;
+                foreach (string value in input_values)
+                {
+                    try
+                    {
+                        date[input_number++] = Convert.ToInt32(value);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("\n <Данные не соотвествуют ожидаемому типу>");
+                        False_input_value = true;
+                        break;
+                    }
+                }
+                if (False_input_value) 
+                    continue;
+
+                //CHEACKING FOR THE CORRECT DATA FORMAT
+                False_input_value = SetBool(date);
+
+                //ASSIGMENT BLOCK
+                if (False_input_value)
+                    Console.WriteLine("\n <Дата введена некорректно>");
+                else
+                {
+                    formatDate = $"{day:d2}.{mounth:d2}.{year}";
+                    this.day = date[0];
+                    this.mounth = date[1];
+                    this.year = date[2];
+                    break;
+                }
+            } while (true);
+        }
+
         public int[] GetFullInfo()
         {
             int[] info = { day, mounth, year };

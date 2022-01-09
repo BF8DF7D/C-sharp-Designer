@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C_sharp_Static_Fielads_and_meyhods
+namespace С_sharp_Designer
 {
     class Time
     {
@@ -28,59 +28,71 @@ namespace C_sharp_Static_Fielads_and_meyhods
             set => formatTime = value;
         }
 
-        public bool SetBool()
+        public bool SetBool(int[] data_entered)
         {
-            bool False_input_value = false;
-
-            string[] input_values = Console.ReadLine().Split(".");
-            const int Quantity_input_value = 2;
-            False_input_value = input_values.Length != Quantity_input_value;
-            if (False_input_value)
-                return False_input_value;
-
-            int[] time = new int[2];
-            int input_number = 0;
-            foreach (string value in input_values)
-            {
-                try
-                {
-                    time[input_number++] = Convert.ToInt32(value);
-                }
-                catch (Exception e)
-                {
-                    False_input_value = true;
-                    return False_input_value;
-                }
-            }
-
-            int hour = time[0],
-                minutes = time[1];
+            int hour = data_entered[0],
+                minutes = data_entered[1];
 
             const int Minimum_value_for_all = 0,
                 Maximum_hour = 23,
                 Maximum_minutes = 59;
 
-            False_input_value = (hour < Minimum_value_for_all || hour > Maximum_hour)
+            bool False_input_value = (hour < Minimum_value_for_all || hour > Maximum_hour)
                 || (minutes < Minimum_value_for_all || minutes > Maximum_minutes);
-            if (False_input_value)
-                return False_input_value;
-
-            formatTime = $"{hour:d2}:{minutes:d2}";
-            this.hour = hour;
-            this.minutes = minutes;
             return False_input_value;
         }
 
-        public void SetFormat()
+        public Time()
         {
-            bool False_Input_Value;
+            
             do
-            {
+            { 
                 Console.Write(" Время: ");
-                False_Input_Value = SetBool();
-                if (False_Input_Value)
+
+                //CHECKING FOR THE AMUNT OF DATA ENTERED
+                string[] input_values = Console.ReadLine().Split(".");
+                const int Quantity_input_value = 2;
+                if (input_values.Length != Quantity_input_value)
+                {
+                    Console.WriteLine("\n <Неверное количество данных>");
+                    continue;
+                }
+
+                //CHECKING FOR THE DATA TYPE
+                int[] time = new int[2];
+                int input_number = 0;
+                bool False_input_value = false;
+                foreach (string value in input_values)
+                {
+                    try
+                    {
+                        time[input_number++] = Convert.ToInt32(value);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("\n <Данные не соотвествуют ожидаемому типу>");
+                        False_input_value = true;
+                        break;
+                    }
+                }
+                if (False_input_value)
+                    continue;
+
+                //CHEACKING FOR THE CORRECT DATA FORMAT
+                False_input_value = SetBool(time);
+
+                //ASSIGMENT BLOCK
+                if (False_input_value)
                     Console.WriteLine("\n <Время введено некорректно>");
-            } while (False_Input_Value);
+                else
+                {
+                    formatTime = $"{hour:d2}:{minutes:d2}";
+                    this.hour = time[0];
+                    this.minutes = time[1];
+                    break;
+                }
+
+            } while (false);
         }
 
         public void ChangeTime(int[] changing_values,Date date)
@@ -125,11 +137,6 @@ namespace C_sharp_Static_Fielads_and_meyhods
         public string GetFormatTime()
         {
             return formatTime;
-        }
-        public Time()
-        {
-            hour = -1;
-            minutes = -1;
         }
     }
 }

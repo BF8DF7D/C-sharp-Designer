@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C_sharp_Static_Fielads_and_meyhods
+namespace С_sharp_Designer
 {
     class Pasport
     {
@@ -12,56 +12,73 @@ namespace C_sharp_Static_Fielads_and_meyhods
             number;
         private string formatPasport;
 
-        public void SetFormat()
+        public bool SetBool(int[] data_entered)
         {
-            bool False_Input_Value;
-            do
-            {
-                Console.Write(" Паспорт: ");
-                False_Input_Value = SetBool();
-                if (False_Input_Value)
-                    Console.WriteLine("\n <Паспортные данные введены некорректно>");
-            } while (False_Input_Value);
-        }
-        public bool SetBool()
-        {
-            bool False_input_value = false;
-            string[] input_values = Console.ReadLine().Split(" ");
-            const int Quantity_input_value = 2;
-            False_input_value = input_values.Length != Quantity_input_value;
-            if (False_input_value)
-                return False_input_value;
 
-            int[] pasport = new int[2];
-            int input_number = 0;
-            foreach (string value in input_values)
-            {
-                try
-                {
-                    pasport[input_number++] = Convert.ToInt32(value);
-                }
-                catch (Exception e)
-                {
-                    False_input_value = true;
-                    return False_input_value;
-                }
-            }
-            const int series = 0,
-                number = 1;
+            int series = data_entered[0],
+                number = data_entered[1];
 
             const int Minimum_value_for_all = 0,
                 Maximum_for_series = 9999,
                 Maximum_for_number = 999999;
 
-            False_input_value = (pasport[series] <= Minimum_value_for_all || pasport[series] > Maximum_for_series)
-                || (pasport[number] <= Minimum_value_for_all || pasport[number] > Maximum_for_number);
-            if (False_input_value)
-                return False_input_value;
+            bool False_Input_Value = (series <= Minimum_value_for_all || series > Maximum_for_series)
+                || (number <= Minimum_value_for_all || number > Maximum_for_number);
 
-            formatPasport= $"{pasport[series]:d4} {pasport[number]:d6}";
-            this.series = pasport[series];
-            this.number = pasport[number];
-            return False_input_value;
+            return False_Input_Value;
+        }
+
+        public Pasport()
+        {
+            do
+            {
+                Console.Write(" Паспорт: ");
+
+                Console.Write(" Дата: ");
+
+                //CHECKING FOR THE AMUNT OF DATA ENTERED
+                string[] input_values = Console.ReadLine().Split(".");
+                const int Quantity_input_value = 2;
+                if (input_values.Length != Quantity_input_value)
+                {
+                    Console.WriteLine("\n <Неверное количество данных>");
+                    continue;
+                }
+
+                //CHECKING FOR THE DATA TYPE
+                int[] pasport = new int[2];
+                int input_number = 0;
+                bool False_input_value = false;
+                foreach (string value in input_values)
+                {
+                    try
+                    {
+                        pasport[input_number++] = Convert.ToInt32(value);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("\n <Данные не соотвествуют ожидаемому типу>");
+                        False_input_value = true;
+                        break;
+                    }
+                }
+                if (False_input_value)
+                    continue;
+
+                //CHEACKING FOR THE CORRECT DATA FORMAT
+                False_input_value = SetBool(pasport);
+
+                //ASSIGMENT BLOCK
+                if (False_input_value)
+                    Console.WriteLine("\n <Паспортные данные введены некорректно>");
+                else
+                {
+                    formatPasport = $"{pasport[0]:d4} {pasport[1]:d6}";
+                    this.series = pasport[0];
+                    this.number = pasport[1];
+                    break;
+                }
+            } while (true);
         }
 
         public int GetSeries()
