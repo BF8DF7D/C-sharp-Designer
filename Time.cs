@@ -86,9 +86,9 @@ namespace С_sharp_Designer
                     Console.WriteLine("\n <Время введено некорректно>");
                 else
                 {
+                    hour = time[0];
+                    minutes = time[1];
                     formatTime = $"{hour:d2}:{minutes:d2}";
-                    this.hour = time[0];
-                    this.minutes = time[1];
                     break;
                 }
 

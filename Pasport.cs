@@ -73,9 +73,9 @@ namespace С_sharp_Designer
                     Console.WriteLine("\n <Паспортные данные введены некорректно>");
                 else
                 {
-                    formatPasport = $"{pasport[0]:d4} {pasport[1]:d6}";
-                    this.series = pasport[0];
-                    this.number = pasport[1];
+                    series = pasport[0];
+                    number = pasport[1];
+                    formatPasport = $"{series:d4} {number:d6}";
                     break;
                 }
             } while (true);

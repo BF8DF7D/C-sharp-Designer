@@ -15,7 +15,7 @@ namespace С_sharp_Designer
             int kabinet = Talon.InputFormatInt();
             Doctor medic = new Doctor();
 
-            Console.WriteLine(("\n Объект");
+            Console.WriteLine("\n Объект");
             Talon one = new Talon(date, time, kabinet, medic);
             one.PrintInfo();
             Console.WriteLine();

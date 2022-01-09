@@ -92,10 +92,10 @@ namespace С_sharp_Designer
                     Console.WriteLine("\n <Дата введена некорректно>");
                 else
                 {
+                    day = date[0];
+                    mounth = date[1];
+                    year = date[2];
                     formatDate = $"{day:d2}.{mounth:d2}.{year}";
-                    this.day = date[0];
-                    this.mounth = date[1];
-                    this.year = date[2];
                     break;
                 }
             } while (true);

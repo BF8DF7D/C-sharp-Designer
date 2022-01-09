@@ -14,7 +14,7 @@ namespace С_sharp_Designer
         private Doctor medic;
 
 
-        bool SetBool(int data_entered)
+        private static bool SetBool(int data_entered)
         {
             const int Minimum_value = 0,
                 Maximum_value = 500;

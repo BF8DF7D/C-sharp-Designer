@@ -58,6 +58,7 @@ namespace С_sharp_Designer
                     this.last_name = name_elements[last_name];
                     this.first_name = name_elements[first_name];
                     this.patronynic = name_elements[patronynic];
+                    break;
 
                 }
             } while (true);
