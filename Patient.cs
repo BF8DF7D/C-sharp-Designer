@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C_sharp_Static_Fielads_and_meyhods
+namespace С_sharp_Designer
 {
     class Patient
     {
@@ -16,54 +16,62 @@ namespace C_sharp_Static_Fielads_and_meyhods
         private Diagnosis[] Diagnosis_History;
         private int Diagnosis_point;
 
-        public void SetPacient()
+        private bool SetBool(int data_entered)
+        {
+            const int Minimum_value = 0x0,
+                Maximum_value = 0xFFFFFFF;
+            bool False_input_value = data_entered < Minimum_value || data_entered > Maximum_value;
+            return False_input_value;
+
+        }
+        int SetFormatInt()
+        {
+            do
+            {
+                Console.Write(" Мед.карта: ");
+
+                //CHECKING FOR THE AMUNT OF DATA ENTERED
+                string[] input_values = Console.ReadLine().Split(" ");
+                const int Quantity_input_value = 1;
+                if (input_values.Length != Quantity_input_value)
+                {
+                    Console.WriteLine("\n <Неверное количество данных>");
+                    continue;
+                }
+
+                //CHECKING FOR THE DATA TYPE
+                bool False_input_value = false;
+                int int_value = 0;
+                try
+                {
+                    int_value = Convert.ToInt32(input_values[0]);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("\n <Данные не соотвествуют ожидаемому типу>");
+                    False_input_value = true;
+                }
+                if (False_input_value)
+                    continue;
+
+                //ASSIGMENT BLOCK
+                False_input_value = SetBool(int_value);
+                if (False_input_value)
+                    Console.WriteLine("\n < Номер мед. карты введён некорректно>");
+                else
+                    return int_value;
+            } while (true);
+            
+        }
+        public Patient()
         {
             Console.WriteLine(" <Ввод информации о пацинте>");
 
             Fio = new FIO();
             Date_Brith = new Date();
-            Diagnosis_History = new Diagnosis[50];
             pasport = new Pasport();
-
-            Fio.SetFormat();
-            Date_Brith.SetFormat();
-            pasport.SetFormat();
-
-            bool False_Input_Value;
-            do
-            {
-                Console.Write(" Мед.карта: ");
-                False_Input_Value = SetBool();
-                if (False_Input_Value)
-                    Console.WriteLine("\n < Номер мед. карты введён некорректно>");
-            } while (False_Input_Value);
-
-            Console.WriteLine(" <Ввод завершён>");
-        }
-        private bool SetBool()
-        {
-            bool False_input_value = false;
-
-            string[] input_values = Console.ReadLine().Split(" ");
-            const int Quantity_input_value = 1;
-            False_input_value = input_values.Length != Quantity_input_value;
-            if (False_input_value)
-                return False_input_value;
-            try
-            {
-                Medical_Card = Convert.ToInt32(input_values[0]);
-            }
-            catch (Exception e)
-            {
-                False_input_value = true;
-                return False_input_value;
-            }
-
-            const int Minimum_value = 0x0,
-                Maximum_value = 0xFFFFFFF;
-            False_input_value = Medical_Card < Minimum_value || Medical_Card > Maximum_value;
-            return False_input_value;
-
+            Medical_Card = SetFormatInt();
+            Diagnosis_History = new Diagnosis[50];
         }
 
         public void PrintInfo()
@@ -156,14 +164,6 @@ namespace C_sharp_Static_Fielads_and_meyhods
         public Diagnosis[] GetHistory()
         {
             return Diagnosis_History;
-        }
-
-        public Patient() {
-            Diagnosis_point = 0;
-            Fio = null;
-            Date_Brith = null;
-            pasport = null;
-            Diagnosis_History = null;
         }
     }
 }

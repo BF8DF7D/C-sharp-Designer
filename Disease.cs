@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C_sharp_Static_Fielads_and_meyhods
+namespace С_sharp_Designer
 {
     class Disease
     {
@@ -12,7 +12,7 @@ namespace C_sharp_Static_Fielads_and_meyhods
         private string[] Disease_Symptoms;
         private static int number_of_deaths = 0;
 
-        public void SetDisease() 
+        public Disease() 
         {
             Console.WriteLine(" <Ввод информации о заболевании>");
             Console.Write(" Наименование: ");
@@ -26,7 +26,13 @@ namespace C_sharp_Static_Fielads_and_meyhods
                 if (Disease_Symptoms[input_value_number] == "")
                     break;
             }
+        } 
+        public Disease(string name)
+        {
+            Name_Disease = name; 
+            Disease_Symptoms = new string[51];
         }
+
         public void PrintInfo()
         {
             Console.WriteLine($" Наименование: {GetName()}");
@@ -62,16 +68,7 @@ namespace C_sharp_Static_Fielads_and_meyhods
         {
             return Disease_Symptoms;
         }
-        public Disease()
-        {
-            Disease_Symptoms = new string[51];
-        }
         
-        public Disease(string name)
-        {
-            Name_Disease = name; 
-            Disease_Symptoms = new string[51];
-        }
         public void SetName(string name)
         {
             Name_Disease = name;

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C_sharp_Static_Fielads_and_meyhods
+namespace С_sharp_Designer
 {
     class Doctor
     {
-        private FIO fio;
+        private FIO fio = new FIO();
         private string dolgnost;
         internal FIO Fio
         {
@@ -16,11 +16,8 @@ namespace C_sharp_Static_Fielads_and_meyhods
         }
 
 
-        public void SetDoctor()
+        public Doctor()
         {
-            fio = new FIO();
-            Console.WriteLine(" <Ввод информации о докторе>");
-            fio.SetFormat();
             Console.Write(" Должность: ");
             dolgnost = Console.ReadLine();
             Console.WriteLine(" <Ввод завершён>");
@@ -43,11 +40,6 @@ namespace C_sharp_Static_Fielads_and_meyhods
         public string GetDolgnost()
         {
             return dolgnost;
-        }
-
-        public Doctor()
-        {
-            fio = null;
         }
     }
 }

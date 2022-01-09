@@ -79,11 +79,6 @@ namespace С_sharp_Designer
         {
             return full_name;
         }
-
-        public FIO()
-        {
-
-        }
     };
 }
 

@@ -123,12 +123,5 @@ namespace С_sharp_Designer
         {
             return formatDate;
         }
-
-        public Date()
-        {
-            day = -1;
-            mounth = -1;
-            year = -1;
-        }
     }
 }

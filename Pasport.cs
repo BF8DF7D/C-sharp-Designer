@@ -93,11 +93,6 @@ namespace С_sharp_Designer
         {
             return formatPasport;
         }
-        
-        public Pasport()
-        {
-            series = -1;
-            number = -1;
-        }
+
     }
 }

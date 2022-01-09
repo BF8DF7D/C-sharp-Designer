@@ -4,17 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C_sharp_Static_Fielads_and_meyhods
+namespace С_sharp_Designer
 {
     class Diagnosis
     {
         private Talon talon;
         private Disease disease;
 
-        public void SetDiadnosis(Talon coupon_of_patient, Disease disease_of_patient)
+        public Diagnosis(Talon coupon_of_patient, Disease disease_of_patient)
         {
             talon = coupon_of_patient;
             disease = disease_of_patient;
+        }
+        public Diagnosis()
+        {
+            talon = null;
+            disease = null;
         }
 
         public void PrintInfo()
@@ -33,12 +38,6 @@ namespace C_sharp_Static_Fielads_and_meyhods
         public Disease GetDisease()
         {
             return disease;
-        }
-
-        public Diagnosis()
-        {
-            talon = null;
-            disease = null;
         }
     }
 }
